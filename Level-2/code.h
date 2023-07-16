@@ -15,7 +15,7 @@
 
 #define MAX_USERNAME_LEN 39
 #define SETTINGS_COUNT 10
-int userid_next = 1;
+long userid_next = 1;
 
 typedef struct {
     bool isAdmin;
@@ -34,22 +34,18 @@ user_account* create_user_account(bool isAdmin, const char* username) {
         return NULL;
     }
     ua->isAdmin = isAdmin;
-    ua->userid = userid_next++;
+    ua->userid = userid_next++; // I would make this random
     strcpy(ua->username, username);
     memset(&ua->setting, 0, sizeof ua->setting);
     return ua;
 }
 
 bool update_setting(user_account* ua, const char *index, const char *value) {
-    char *endptr;
+    char *endptr1, *endptr2;
     long i, v;
-    i = strtol(index, &endptr, 10);
-    if (*endptr)
-        return false;
-    if (i >= SETTINGS_COUNT)
-        return false;
-    v = strtol(value, &endptr, 10);
-    if (*endptr)
+    i = strtol(index, &endptr1, 10);
+    v = strtol(value, &endptr2, 10);
+    if (*endptr1 || *endptr2 || i < 0 || i >= SETTINGS_COUNT)
         return false;
     ua->setting[i] = v;
     return true;
