@@ -315,3 +315,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Don't save database files
+*.db

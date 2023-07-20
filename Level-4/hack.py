@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import unittest
 import code as c
 
@@ -29,7 +31,7 @@ class TestDatabase(unittest.TestCase):
         what_hacker_passes = op.get_stock_price("MSFT'; UPDATE stocks SET price = '525' WHERE symbol = 'MSFT'--")
         hacker_output = "[METHOD EXECUTED] get_stock_price\n[QUERY] SELECT price FROM stocks WHERE symbol = 'MSFT'; UPDATE stocks SET price = '525' WHERE symbol = 'MSFT'--'\n[SCRIPT EXECUTION]\n"
         
-        self.assertEqual(developer_output_expectation, what_hacker_passes)
+        self.assertEqual(what_hacker_passes, hacker_output)
 
 """
 Further exploit input could be:
